@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to polarization, the military, and primary elections. 
+I am interested in exploring data related to polarization, the military, and primary elections. I'd like to potentially look into statistics about people's willingness or unwillingness to join the military in certain countries.

@@ -22,7 +22,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 pp2 = read.csv("violence.csv")
-pp2
 ```
 
 
@@ -32,4 +31,27 @@ Research question: Does economic prosperity effect how democratic a country is?
 Hypothesis: Greater economic prosperity allows citizens to have more power and in turn cause them to become involved in government affairs. This allows the majority of citizens to have a greater say in how their government is formed which leads to democracy. The variables we are focusing on is economic prosperity, our independent variable, and levels of democracy, our dependent variable. Economic prosperity can be measured in several ways. Looking at our data set in this specific problem, gyp60 (Growth rate of real per capita GDP), lly60(Financial Depth: Ratio of liquid liabilities of the financial system to GDP, dec), and pavroad60(Paved Roads (percent of total)) could all be used to measure the economic prosperity of a country. For levels of democracy, from this data set we could use democ60(Measure of democracy (Gastil's Political Rights)), constchg60(Major Constitutional Changes: The number of basic alternations in a state's cons), and newspaperPC60(Newspapers per capita). The data that would provide support for our hypothesis would be high levels of economic prosperity and high levels of democracy. On the flip side, data that would not support our hypothesis would be lower levels of the economic prosperity in a country and higher levels of economic prosperity. 
 
 Complete. 
+
+## Project Proposal 3
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+pp2 = read_csv("violence.csv")
+pp2
+```
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+pp2 = read_csv("violence.csv")
+
+ggplot(data = pp2, mapping = aes(x = gyp80, y = lschool80)) + 
+  geom_point() + 
+  geom_smooth() + 
+  labs(x = "Growth Rate of Per Capita GDP", y = "Log of 1 + average years of school attainment", title = "Schooling and GDP per capita growth")
+```
+
+
 

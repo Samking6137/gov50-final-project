@@ -39,7 +39,6 @@ library(tidyverse)
 library(ggplot2)
 
 pp2 = read_csv("violence.csv")
-pp2
 ```
 ```{r}
 library(tidyverse)
@@ -53,5 +52,22 @@ ggplot(data = pp2, mapping = aes(x = gyp80, y = lschool80)) +
   labs(x = "Growth Rate of Per Capita GDP", y = "Log of 1 + average years of school attainment", title = "Schooling and GDP per capita growth")
 ```
 
+#Project proposal 4
 
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+pp2 = read_csv("violence.csv")
+pp2
+
+ggplot(data = pp2, mapping = aes(x = democ80, y = lly80)) + 
+  geom_point() + 
+  geom_smooth() +
+  labs(x = "Measure of Democracy", y = "Financial Depth", title = "Comparing Measure of Democracy and Financial Depth")
+  
+
+  
+```
+This scatter plot looks at the relationship between the Measure of a countries democracy and financial depth. As the plot shows there is a slight decrease in financial depth as the measure of democracy increases. This gives us insightful information to our research question. It goes against the typical hypothesis that the more democratic a country is, the wealthier it is. 
 

@@ -6,54 +6,43 @@ output:
   distill::distill_article:
     self_contained: false
 ---
-
-
-
-## Project Proposal 1
-
-I am interested in exploring data related to polarization, the military, and primary elections. I'd like to potentially look into statistics about people's willingness or unwillingness to join the military in certain countries.
-
-## Project Proposal 2
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-pp2 = read.csv("violence.csv")
-```
-
-
-Writing proposal:
-
-Research question: Does economic prosperity effect how democratic a country is?
-Hypothesis: Greater economic prosperity allows citizens to have more power and in turn cause them to become involved in government affairs. This allows the majority of citizens to have a greater say in how their government is formed which leads to democracy. The variables we are focusing on is economic prosperity, our independent variable, and levels of democracy, our dependent variable. Economic prosperity can be measured in several ways. Looking at our data set in this specific problem, gyp60 (Growth rate of real per capita GDP), lly60(Financial Depth: Ratio of liquid liabilities of the financial system to GDP, dec), and pavroad60(Paved Roads (percent of total)) could all be used to measure the economic prosperity of a country. For levels of democracy, from this data set we could use democ60(Measure of democracy (Gastil's Political Rights)), constchg60(Major Constitutional Changes: The number of basic alternations in a state's cons), and newspaperPC60(Newspapers per capita). The data that would provide support for our hypothesis would be high levels of economic prosperity and high levels of democracy. On the flip side, data that would not support our hypothesis would be lower levels of the economic prosperity in a country and higher levels of economic prosperity. 
-
-Complete. 
-
-## Project Proposal 3
-
-```{r}
 library(tidyverse)
 library(ggplot2)
 
 pp2 = read_csv("violence.csv")
 ```
+
+Final project 
+
+Introduction:
+    Much has been said about economic prosperity and its link to more democratic regime types within political science research. But looking at some of the world's wealthiest countries today such as Russia and China, it is clear that this is not always the case. It forces the question, “does how democratic a country is really affect economic prosperity?” This project seeks to analyze that relationship through looking at financial depth and levels of democracy in the 1980’s. Financial depth is a measure of a country’s financial sector relative to their economy. This is an interesting metric to look at because according to the World Bank, financial depth has “a strong statistical link to long-term economic growth” and it is “closely linked to poverty reduction.” My hypothesis is that there is a positive relationship between levels of democracy and financial depth. It is important to analyze the relationship between democracy and financial depth because it gives us valuable information on the benefits of economic liberalism and of democracy in general. 
+
+Data Section:
+    The name of the data set that I use in the project is Political Violence. There are many variables within the data set which give relevant information about countries regarding political violence. For example there are variables such as racialt, that measures Racial tension for 1984, 1 (low tension) to 6 (high tension), and deathsPC60, which measures Deaths from Political Violence per One Million Citizens. This project looks at the variables democ80, measure of democracy from Gastil’s Political Rights, and lly80, financial depth. 
+    Our independent variable is levels of democracy and our dependent variable is financial depth. Levels of democracy are measured by Gastil’s Political Rights named after Raymond Gastil. Gastil was a political scientist who measured the levels of democracy in a country through different factors in a scale from 1-7. This is where the data for our independent variable comes from. Financial depth is measured by taking the Ratio of liquid liabilities of the financial system to its GDP. The data that would provide support for our hypothesis would suggest higher levels of democracy correlating with higher financial depth. On the flip side, data contradicting our hypothesis would suggest lower levels of democracy correlating with higher levels of financial depth. 
+    
 ```{r}
 library(tidyverse)
 library(ggplot2)
 
 pp2 = read_csv("violence.csv")
+pp2
 
-ggplot(data = pp2, mapping = aes(x = gyp80, y = lschool80)) + 
-  geom_point() + 
-  geom_smooth() + 
-  labs(x = "Growth Rate of Per Capita GDP", y = "Log of 1 + average years of school attainment", title = "Schooling and GDP per capita growth")
+ggplot(data = pp2, mapping = aes(x = lly80)) + 
+  geom_histogram() + 
+  labs(x = "Financial Depth", y = "Count", title = "Histogram Summarazing our Dependent Variable: Financial Depth")
 ```
 
-#Project proposal 4
 
+Results Section:
+    The scatter plot presented looks at the relationship between the measure of a country's democracy and their financial depth. The levels of democracy fall into groups ranging from 1-7. Group 1 represents the countries with the lowest levels of democracy and group 7 represents the countries with the highest levels of democracy. As our graph shows, the financial depth for these countries ranges from about .001 to 1.7. Our line of best fit shows there is a slight decrease in financial depth as the measure of democracy increases. In order to tell if there is a statistically significant relationship between levels of democracy and financial depth, we have to run a linear regression which we do below. 
+    According to our linear regression, there is a statistically significant negative relationship (at alpha = 0.001) between the measure of democracy and financial depth in the 1980's. The regression shows us that every 1 unit increase in democracy correlates to a 0.061 decrease in financial depth. Although there is statistical significance between our two variables, we can not say with certainty that there is causality because there are many other factors that go into the financial depth of a country. Some of these other factors may include natural resources, geography, war, and climate. 
+    
 ```{r}
 library(tidyverse)
 library(ggplot2)
@@ -62,12 +51,25 @@ pp2 = read_csv("violence.csv")
 pp2
 
 ggplot(data = pp2, mapping = aes(x = democ80, y = lly80)) + 
-  geom_point() + 
-  geom_smooth() +
-  labs(x = "Measure of Democracy", y = "Financial Depth", title = "Comparing Measure of Democracy and Financial Depth")
-  
-
+  geom_point() +   
+  geom_smooth(method = "lm") +
+  labs(x = "Measure of Democracy", y = "Financial Depth", title = "Comparing Levels of Democracy and Financial Depth")
   
 ```
-This scatter plot looks at the relationship between the Measure of a countries democracy and financial depth. As the plot shows there is a slight decrease in financial depth as the measure of democracy increases. This gives us insightful information to our research question. It goes against the typical hypothesis that the more democratic a country is, the wealthier it is. 
+
+```{r}
+# Single variable linear regression
+fit <- lm(lly80 ~ democ80, data = pp2)
+fit
+modelsummary::modelsummary(fit)
+```
+
+Conclusion Section:
+    My findings from this project are very interesting and contradict what I laid out in my hypothesis. To summarize my results, I find that there is a statistically significant negative relationship between the measure of democracy and financial depth in the 1980's. This does not support my hypothesis as I predicted there would be a positive relationship between the two variables. There are several limitations of the analysis and threats to inference. One limitation is missing data from our data set. Not all countries were given a score for levels of democracy and for financial depth. This could affect our results because we could be missing data on countries that have a democracy level or financial depth number that would further sway the overall relationship we found. Another limitation is that measuring a country's democracy can be an ambiguous task. While I do not doubt Gastil’s research and findings, democracy can mean different things for different people. Therefore, if we were to publish this study, we would have to be explicit about Gastil’s measurement of what makes a country democratic. A final limitation is that this data comes from the 1980’s. The short time frame does not give us quite enough information on how important the relationship between our two variables are because there could have been an external factor during the time such as the Cold War that had an impact on our results. If I had more time and money, I would find all the missing data for the countries that were not included in our findings. This would give us a much better understanding of the final results as we would have an appropriate sample size. I would also like to look at other variables that affect the financial depth of a country such as geography, military spending, and education. This would drive our analysis further as we would be able to compare the relationship between multiple variables.
+
+
+
+Citation:
+
+“Financial Depth.” World Bank, November 7, 2017. https://www.worldbank.org/en/publication/gfdr/gfdr-2016/background/financial-depth. 
 
